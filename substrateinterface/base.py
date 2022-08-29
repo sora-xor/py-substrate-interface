@@ -533,6 +533,9 @@ class SubstrateInterface:
 
             response = requests.request("POST", self.url, data=json.dumps(payload), headers=self.default_headers)
 
+            if response.status_code == 404:
+                print('>>>>> rpc_request - 404 response. method = {}, params = {}, text: {}'.format(method, params, response.text))
+
             if response.status_code != 200:
                 raise SubstrateRequestException("RPC request failed with HTTP status code {}".format(response.status_code))
 
